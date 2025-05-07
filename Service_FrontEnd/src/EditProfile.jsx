@@ -34,7 +34,7 @@ const EditProfile = () => {
     e.preventDefault();
     try {
       await userAPI.updateUser(user._id, formData);
-      await refreshUser(); // Proper user state update
+      await refreshUser(); 
       setMessage({ type: 'success', text: 'Profile updated successfully!' });
     } catch (error) {
       setMessage({ 
