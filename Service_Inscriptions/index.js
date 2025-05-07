@@ -10,7 +10,6 @@ const port = 9000;
 app.use(cors());
 app.use(express.json());
 
-// Create axios instance with auth interceptor
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use(config => {
   const token = config.headers.Authorization?.split(' ')[1] || '';
@@ -23,8 +22,7 @@ axiosInstance.interceptors.request.use(config => {
 app.post('/registrations', auth, async (req, res) => {
   try {
     const { eventId } = req.body;
-    
-    // Get event with authorization
+   
     const eventResponse = await axiosInstance.get(`http://localhost:8000/events/${eventId}`, {
       headers: { Authorization: req.headers.authorization }
     });
@@ -45,21 +43,21 @@ app.post('/registrations', auth, async (req, res) => {
       return res.status(400).json({ message: "Event full - cannot register" });
     }
 
-    // Create registration
+   
     const newRegistration = new Registration({
       userId: req.userData.userId,
       eventId
     });
     await newRegistration.save();
 
-    // Update event capacity with proper authorization
+   
     await axiosInstance.put(`http://localhost:8000/events/${eventId}`, {
       capacity: currentCapacity - 1
     }, {
       headers: { Authorization: req.headers.authorization }
     });
 
-    // RabbitMQ notification
+    
     const connection = await amqp.connect('amqp://localhost');
     const channel = await connection.createChannel();
     channel.sendToQueue('NEW_REGISTRATIONS', Buffer.from(JSON.stringify(newRegistration)));
@@ -68,7 +66,7 @@ app.post('/registrations', auth, async (req, res) => {
   } catch (error) {
     console.error('Registration error:', error);
     
-    // Cleanup if registration was created but capacity update failed
+  
     if (newRegistration?._id) {
       await Registration.findByIdAndDelete(newRegistration._id);
     }
@@ -84,14 +82,13 @@ app.post('/registrations', auth, async (req, res) => {
 app.get('/registrations', auth, async (req, res) => {
   try {
     const registrations = await Registration.find({ userId: req.userData.userId });
-    
-    // Fetch event details for each registration
+  
     const registrationsWithEvents = await Promise.all(
       registrations.map(async (reg) => {
         const eventResponse = await axiosInstance.get(`http://localhost:8000/events/${reg.eventId}`);
         return {
           ...reg.toObject(),
-          eventId: eventResponse.data // Replace eventId with full event data
+          eventId: eventResponse.data 
         };
       })
     );
@@ -101,13 +98,13 @@ app.get('/registrations', auth, async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-// Keep other endpoints the same but add auth headers to event service calls
+
 app.delete('/registrations/:id', auth, async (req, res) => {
   try {
     const registration = await Registration.findByIdAndDelete(req.params.id);
     if (!registration) return res.status(404).json({ message: "Registration not found" });
 
-    // Update event capacity with authorization
+    
     const event = await axiosInstance.get(`http://localhost:8000/events/${registration.eventId}`, {
       headers: { Authorization: req.headers.authorization }
     });
@@ -118,7 +115,7 @@ app.delete('/registrations/:id', auth, async (req, res) => {
       headers: { Authorization: req.headers.authorization }
     });
 
-    // RabbitMQ notification
+
     const connection = await amqp.connect('amqp://localhost');
     const channel = await connection.createChannel();
     channel.sendToQueue('CANCELLED_REGISTRATIONS', Buffer.from(JSON.stringify(registration)));
