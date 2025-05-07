@@ -1,15 +1,15 @@
-/* log-regi.css - Bright Theme */
+
 :root {
-  --primary-blue: #2563eb;       /* Main brand blue */
-  --success-green: #22c55e;      /* Positive actions */
-  --error-red: #dc2626;          /* Errors/danger */
-  --background-white: #ffffff;   /* Main background */
-  --text-dark: #1e293b;          /* Primary text */
-  --text-light: #64748b;         /* Secondary text */
-  --border-gray: #e5e7eb;        /* Borders/divider */
+  --primary-blue: #2563eb;       
+  --success-green: #22c55e;      
+  --error-red: #dc2626;         
+  --background-white: #ffffff;   
+  --text-dark: #1e293b;         
+  --text-light: #64748b;        
+  --border-gray: #e5e7eb;       
 }
 
-/* Base Container Styles */
+
 .auth-container {
   display: flex;
   justify-content: center;
@@ -19,7 +19,7 @@
   padding: 2rem;
 }
 
-/* Auth Card Design */
+
 .auth-card {
   background: var(--background-white);
   border-radius: 12px;
@@ -48,7 +48,6 @@
   line-height: 1.5;
 }
 
-/* Form Elements */
 .auth-form {
   margin-top: 2rem;
 }
@@ -95,7 +94,7 @@
   color: var(--primary-blue);
 }
 
-/* Button Styles */
+
 .auth-button {
   width: 40%;
   padding: 1rem;
@@ -125,7 +124,7 @@
   transform: translateY(0);
 }
 
-/* Loading Spinner */
+
 .button-spinner {
   width: 20px;
   height: 20px;
@@ -139,7 +138,7 @@
   to { transform: rotate(360deg); }
 }
 
-/* Error/Success States */
+
 .auth-error {
   color: var(--error-red);
   padding: 1rem;
@@ -160,7 +159,7 @@
   border: 1px solid #86efac;
 }
 
-/* Footer Links */
+
 .auth-footer {
   text-align: center;
   margin-top: 2rem;
@@ -179,7 +178,7 @@
   text-decoration: underline;
 }
 
-/* Responsive Design */
+
 @media (max-width: 480px) {
   .auth-container {
     padding: 1.5rem;
