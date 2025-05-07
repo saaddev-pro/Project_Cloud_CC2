@@ -5,7 +5,7 @@ import { AuthProvider } from './context/AuthContext';
 import { EventProvider } from './context/EventContext';
 import { InscriptionProvider } from './context/InscriptionContext';
 import AppLayout from './App';
-import './index.css'; // Import your global CSS styles
+import './index.css'; 
 
 
 createRoot(document.getElementById('root')).render(
