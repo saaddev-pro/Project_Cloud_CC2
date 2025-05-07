@@ -1,4 +1,4 @@
-/* Navbar Container */
+
 .navbar {
     background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -19,7 +19,7 @@
     padding: 1rem 2rem;
   }
   
-  /* Brand/Logo */
+  
   .navbar-brand {
     font-size: 1.5rem;
     font-weight: 700;
@@ -27,7 +27,7 @@
     text-decoration: none;
   }
   
-  /* Navigation Links */
+  
   .nav-links {
     display: flex;
     gap: 2rem;
@@ -57,7 +57,7 @@
     background-color: #2563eb;
   }
   
-  /* Auth Section */
+  
   .auth-section {
     display: flex;
     align-items: center;
@@ -95,7 +95,7 @@
     background-color: #1d4ed8;
   }
   
-  /* Profile Dropdown */
+
   .profile-dropdown {
     position: relative;
   }
@@ -158,10 +158,6 @@
     cursor: pointer;
     padding: 0;
   }
-
-  /* Add these styles to your CSS file */
-
-
 .events-header {
   margin: 2rem 0;
   text-align: center;
@@ -172,22 +168,22 @@
   text-align: center;
   padding: 1rem;
 }
-/* Add this after your existing navbar styles */
+
 .main-content {
-  padding-top: 80px; /* Should match navbar height + 10px */
+  padding-top: 80px; 
   min-height: calc(100vh - 80px);
   position: relative;
   z-index: 1;
 }
 
-/* Modify the event list container */
+
 .event-list-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
 }
 
-/* Remove the temporary debug borders */
+
 .event-list-container, .navbar {
   border: none !important;
 }
