@@ -1,4 +1,4 @@
-/* Profile Settings */
+
 .profile-settings-container {
     max-width: 800px;
     margin: 2rem auto;
@@ -27,7 +27,7 @@
     font-size: 1.4rem;
   }
   
-  /* Alert Messages */
+  
   .alert-message {
     padding: 1rem;
     margin-bottom: 2rem;
@@ -47,7 +47,7 @@
     border: 1px solid #f5c6cb;
   }
   
-  /* Password Toggle */
+  
   .toggle-password {
     display: flex;
     align-items: center;
@@ -62,7 +62,7 @@
     margin: 0;
   }
   
-  /* Responsive Design */
+  
   @media (max-width: 768px) {
     .profile-settings-container {
       margin: 1rem;
