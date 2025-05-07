@@ -10,7 +10,7 @@ export function EventProvider({ children }) {
   const [error, setError] = useState(null);
 
  
-  // Add these functions to your EventContext
+
 const fetchAllEvents = async () => {
   setIsLoading(true);
   try {
