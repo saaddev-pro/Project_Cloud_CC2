@@ -37,7 +37,7 @@ const EventDetails = () => {
       }
     };
     fetchEventData();
-  }, [id, user, registrations]); // Added registrations to dependencies
+  }, [id, user, registrations]); 
 
   const handleRegistration = async () => {
     if (!user) {
@@ -56,7 +56,7 @@ const EventDetails = () => {
           return;
         }
 
-        // Prevent duplicate registration
+      
         if (registrations.some(reg => reg.eventId._id === id)) {
           setLocalError('You are already registered for this event');
           return;
@@ -65,7 +65,7 @@ const EventDetails = () => {
         await createRegistration(id);
       }
 
-      // Refresh data without redirecting
+     
       const updatedEvent = await getEventById(id);
       setEvent(updatedEvent);
       setRegistrationStatus(!registrationStatus);
