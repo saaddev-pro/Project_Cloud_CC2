@@ -18,7 +18,7 @@ app.post('/users/register', async (req, res) => {
   try {
     const { firstName, lastName, email, password } = req.body;
     
-    // Validation
+    
     if (!firstName || !lastName || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
     }
@@ -67,7 +67,7 @@ app.post('/users/change-password', async (req, res) => {
   try {
     const { userId, currentPassword, newPassword } = req.body;
     
-    // Validate input
+  
     if (!userId || !currentPassword || !newPassword) {
       return res.status(400).json({ message: "All fields are required" });
     }
@@ -77,13 +77,13 @@ app.post('/users/change-password', async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Verify current password
+   
     const validPassword = await bcrypt.compare(currentPassword, user.passwordHash);
     if (!validPassword) {
       return res.status(401).json({ message: "Current password is incorrect" });
     }
 
-    // Hash new password
+   
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     user.passwordHash = hashedPassword;
     await user.save();
@@ -101,7 +101,7 @@ app.post('/users/change-password', async (req, res) => {
 
 app.post('/users/login', async (req, res) => {
   try {
-    console.log('Login attempt:', req.body); // Add logging
+    console.log('Login attempt:', req.body); 
     const { email, password } = req.body;
     
     if (!email || !password) {
@@ -134,7 +134,7 @@ app.post('/users/login', async (req, res) => {
     res.status(500).json({ error: "Internal server error", details: error.message });
   }
 });
-// User update endpoint
+
 app.put('/users/:id', async (req, res) => {
   try {
     const { firstName, lastName, email } = req.body;
@@ -151,7 +151,7 @@ app.put('/users/:id', async (req, res) => {
   }
 });
 
-// RabbitMQ message handlers
+
 async function setupQueue(queueName) {
     const connection = await amqp.connect('amqp://localhost');
     const channel = await connection.createChannel();
@@ -163,19 +163,18 @@ async function setupQueue(queueName) {
     });
 }
 
-// GET /newEvent
+
 app.get('/newEvent', async (req, res) => {
     await setupQueue('NEW_EVENTS');
     res.status(200).json({ message: "Listening for new events" });
 });
 
-// GET /event_supprimes
 app.get('/event_supprimes', async (req, res) => {
     await setupQueue('UPDATED_EVENTS');
     res.status(200).json({ message: "Listening for event updates" });
 });
 
-// GET /inscriptionAnnule
+
 app.get('/inscriptionAnnule', async (req, res) => {
     await setupQueue('CANCELLED_REGISTRATIONS');
     res.status(200).json({ message: "Listening for cancelled registrations" });
