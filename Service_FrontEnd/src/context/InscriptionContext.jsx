@@ -15,7 +15,7 @@ export function InscriptionProvider({ children }) {
     if (!user?._id) return;
     setIsLoading(true);
     try {
-      const response = await registrationAPI.getRegistrations(); // No user ID passed
+      const response = await registrationAPI.getRegistrations(); 
       setRegistrations(response.data);
       setError(null);
     } catch (err) {
