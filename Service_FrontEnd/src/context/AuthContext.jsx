@@ -10,27 +10,27 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Add registration function
+ 
   const register = async (userData) => {
     try {
-      // Use authAPI instead of direct axios call
+     
       const response = await authAPI.register(userData);
       const { token } = response.data;
   
       if (!token) throw new Error('Invalid token received');
   
-      // Verify token structure
+     
       try {
         jwtDecode(token);
       } catch (decodeError) {
         throw new Error('Invalid token structure');
       }
   
-      // Get user details using the API client
+      
       const decoded = jwtDecode(token);
       const userResponse = await authAPI.getProfile(decoded.userId);
   
-      // Update state and storage
+     
       setUser(userResponse.data);
       localStorage.setItem('token', token);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -42,7 +42,7 @@ export function AuthProvider({ children }) {
     }
   };
 
-  // Enhanced login with token verification
+ 
   const login = async (email, password) => {
     try {
       const response = await authAPI.login(email, password);
@@ -74,15 +74,15 @@ export function AuthProvider({ children }) {
   };
 
 
-  // Enhanced logout
+ 
   const logout = () => {
     localStorage.removeItem('token');
     delete axios.defaults.headers.common['Authorization'];
     setUser(null);
-    window.location.reload(); // Ensure clean state
+    window.location.reload(); 
   };
 
-  // Auto-login with token verification
+ 
   useEffect(() => {
     const verifyToken = async () => {
       const token = localStorage.getItem('token');
