@@ -9,7 +9,8 @@ const port = 8000;
 app.use(cors());
 app.use(express.json());
 
-// Authentication Middleware
+
+
 const authenticateJWT = (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];
     if (!token) return res.status(403).send("Access denied");
@@ -21,7 +22,7 @@ const authenticateJWT = (req, res, next) => {
     });
 };
 
-// AMQP Connection Helper
+
 let channel;
 const connectRabbitMQ = async () => {
     const connection = await amqp.connect('amqp://localhost');
@@ -32,7 +33,8 @@ const connectRabbitMQ = async () => {
 };
 connectRabbitMQ();
 
-// POST /events - Create new event
+
+
 app.post('/events', authenticateJWT, async (req, res) => {
     try {
         const eventData = {
@@ -50,7 +52,8 @@ app.post('/events', authenticateJWT, async (req, res) => {
     }
 });
 
-// GET /events - Get all events
+
+
 app.get('/events', async (req, res) => {
     try {
         const events = await Event.find().populate('userId', 'firstName lastName email');
@@ -60,7 +63,8 @@ app.get('/events', async (req, res) => {
     }
 });
 
-// GET /events/:id - Get single event
+
+
 app.get('/events/:id', async (req, res) => {
     try {
         const event = await Event.findById(req.params.id).populate('userId', 'firstName lastName');
@@ -71,7 +75,8 @@ app.get('/events/:id', async (req, res) => {
     }
 });
 
-// Service_Evenements/index.js
+
+
 app.get('/events/user/:userId', async (req, res) => {
     try {
       const events = await Event.find({ userId: req.params.userId });
@@ -86,18 +91,17 @@ app.get('/events/user/:userId', async (req, res) => {
         const event = await Event.findById(req.params.id);
         if (!event) return res.status(404).json({ message: "Event not found" });
 
-        // Handle capacity update separately
+        
+        
         if (req.body.capacity !== undefined) {
             event.capacity = req.body.capacity;
             await event.save();
         }
 
-        // Check ownership for other updates
         if (event.userId.toString() !== req.userData.userId) {
             return res.status(403).json({ message: "Unauthorized" });
         }
 
-        // Update other fields
         const updatedEvent = await Event.findByIdAndUpdate(
             req.params.id,
             req.body,
@@ -111,8 +115,6 @@ app.get('/events/user/:userId', async (req, res) => {
     }
 });
 
-
-// DELETE /events/:id - Delete event
 app.delete('/events/:id', authenticateJWT, async (req, res) => {
     try {
         const event = await Event.findById(req.params.id);
@@ -129,8 +131,6 @@ app.delete('/events/:id', authenticateJWT, async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
-// Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ error: 'Something went wrong!' });
