@@ -1,13 +1,13 @@
-/* home.css */
+
 .home-container {
-  padding-top: 70px; /* Navbar height */
+  padding-top: 70px; 
 }
 
-/* Hero Section */
+
 .hero-section {
   position: relative;
-  height: 75vh; /* Increased from 60vh */
-  min-height: 600px; /* Minimum height for large screens */
+  height: 75vh;
+  min-height: 600px;
   background: 
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url('/receptionevents.jpeg');
@@ -18,8 +18,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: -70px 0 3rem; /* Counteract navbar padding */
-  padding-top: 70px; /* Space for navbar */
+  margin: -70px 0 3rem; 
+  padding-top: 70px; 
 }
 
 .hero-overlay {
@@ -54,7 +54,7 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Search and Sort Styles */
+
 .search-sort-container {
   display: flex;
   gap: 1.5rem;
@@ -93,7 +93,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Featured Events */
+
 .featured-events {
   padding: 4rem 1rem;
   max-width: 1200px;
@@ -107,7 +107,7 @@
   text-align: center;
 }
 
-/* Responsive Adjustments */
+
 @media (max-width: 768px) {
   .hero-section {
     height: 60vh;
@@ -163,7 +163,7 @@
   }
 }
 
-/* Existing additional styles... */
+
 .loading, .no-events {
   text-align: center;
   padding: 2rem;
