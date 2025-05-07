@@ -9,12 +9,12 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        {/* Brand/Logo */}
+        
         <Link to="/" className="navbar-brand">
           EventHub
         </Link>
 
-        {/* Main Navigation Links */}
+      
         <div className="nav-links">
           <NavLink 
             to="/" 
@@ -41,7 +41,7 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Auth Section */}
+      
         <div className="auth-section">
           {user ? (
             <div className="profile-dropdown">
